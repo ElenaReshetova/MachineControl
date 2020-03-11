@@ -9,8 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap myPixmap( "Scale1.jpg" );
+    QPixmap myPixmap( ":/img/Scale1.JPG" );
+    QPixmap emoji( ":/img/poo.png" );
     ui->label->setPixmap( myPixmap );
+    ui->label2->setPixmap( emoji );
+    ui->label2->setVisible(false);
 
     /*QGraphicsScene *scene = new QGraphicsScene();
     scene->setBackgroundBrush(myPixmap.scaled(100,100,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
@@ -46,13 +49,16 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
     int yr = (495 - e->y())/4.8;
     if (abs(xr)<=100 && abs(yr)<=100 && (abs(xr)+abs(yr))<=100)
     {
-    QString str;
-    str = QString("SEND W=%1 V=%2 x=%3 y=%4")
+        QString str;
+        str = QString("SEND W=%1 V=%2 x=%3 y=%4")
             .arg(xr)
             .arg(yr)
             .arg(e->x())
             .arg(e->y());
-    statusBar()->showMessage(str);
+        statusBar()->showMessage(str);
+        ui->label2->setVisible(true);
+        ui->label2->setGeometry(e->x()-ui->label2->geometry().width()/2, e->y()-ui->label2->geometry().height()/2, ui->label2->geometry().width(), ui->label2->geometry().height());
+
     }
     QMainWindow::mouseMoveEvent(e);
     QPainter painter(this);
@@ -66,13 +72,14 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e)
     int yr = (495 - e->y())/4.8;
     if (abs(xr)<=100 && abs(yr)<=100 && (abs(xr)+abs(yr))<=100)
     {
-    QString str;
-    str = QString("SEND W=%1 V=%2 x=%3 y=%4")
+        QString str;
+        str = QString("SEND W=%1 V=%2 x=%3 y=%4")
             .arg(xr)
             .arg(yr)
             .arg(e->x())
             .arg(e->y());
-    statusBar()->showMessage(str);
+        statusBar()->showMessage(str);
+        ui->label2->setGeometry(e->x()-ui->label2->geometry().width()/2, e->y()-ui->label2->geometry().height()/2, ui->label2->geometry().width(), ui->label2->geometry().height());
 
     }
     QPainter painter(this);
